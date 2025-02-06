@@ -4,20 +4,19 @@ import Header from './Header';
 import { CheckvaildDATA } from '../utils/validates';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
 import { updateProfile } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { addUser} from '../utils/userSlice';
+import { ProfilePic } from '../utils/constants';
 
 const Login = () => {
   const [signIn, setSignIn] = useState(true);
   const [error, setError] = useState('');
-  const [user, setUser] = useState(null); // State to store user object
+  const [user, setUser] = useState(null); 
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
-   const navigate=useNavigate();
-   const dispatch=useDispatch();
+  const dispatch=useDispatch();
 
   const check = () => {
     const message = CheckvaildDATA(email?.current?.value, password?.current?.value, name?.current?.value);
@@ -30,7 +29,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name?.current?.value, 
-            photoURL: "https://lh3.googleusercontent.com/a/ACg8ocKI66crYSasaWyJMnFOlYcN2t78uXl4jLd9_CXuyYfZhMxkdXk_=s312-c-no"
+            photoURL: {ProfilePic}
           }).then(() => {
             // Profile updated!
              const {uid,email,displayName,photoURL} = auth.currentUser;
@@ -41,7 +40,7 @@ const Login = () => {
                 displayName:displayName,
                 photoURL:photoURL}));
             setUser(user); 
-          navigate("/browse");
+        
           }).catch((error) => {
             // An error occurred
             setError(error.message);
@@ -52,7 +51,7 @@ const Login = () => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setError(errorCode + "-" + errorMessage);
-          console.error(error); // Log the error for debugging
+         
         });
     } else {
       // Sign in logic
@@ -61,8 +60,8 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           setUser(user); // Update state with user object
-          console.log(user);
-          navigate("/browse");
+         
+        
         }).then(() => {
           // Profile updated!
            const {uid,email,displayName,photoURL} = auth.currentUser;
@@ -73,13 +72,13 @@ const Login = () => {
               displayName:displayName,
               photoURL:photoURL}));
           setUser(user); 
-        navigate("/browse");
+       
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setError(errorCode + "-" + errorMessage);
-          console.error(error); // Log the error for debugging
+         
         });
     }
   }
