@@ -10,3 +10,5 @@ export const API_OPTIONS= {
       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZTg2NTAwZDlhYjBhYzhkNmNkODJlODBiNjcyMzQxMSIsIm5iZiI6MTczODgxNTQ5NS44NCwic3ViIjoiNjdhNDM4MDdiZjM2MDQwYzVkODViMTMzIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.fRrZ0Ot74l5sUo66TmR7GJUDq0-iHnOpQkxZNzwfViM'
     }
   };
+
+export const MovieImage_URL="https://image.tmdb.org/t/p/w500";
